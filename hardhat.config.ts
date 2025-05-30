@@ -15,6 +15,8 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       // Настройки для локальной сети
+      chainId: 1337,
+      initialBaseFeePerGas: 0,
     },
   },
   gasReporter: {

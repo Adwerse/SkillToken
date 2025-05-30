@@ -5,7 +5,7 @@
     "test-only": "npx hardhat test",
     "coverage": "npx hardhat coverage",
     "compile": "npx hardhat compile",
-    "deploy": "npx hardhat run scripts/deploy.ts",
+    "deploy": "npx hardhat run ignition/modules/cert.ts --network localhost",
     "node": "npx hardhat node",
     "clean": "npx hardhat clean",
     "verify": "node scripts/verify-tests.js"
