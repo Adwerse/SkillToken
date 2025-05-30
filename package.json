@@ -1,0 +1,23 @@
+{
+  "name": "hardhat-project",
+  "scripts": {
+    "test": "npx hardhat test && npx hardhat coverage",
+    "test-only": "npx hardhat test",
+    "coverage": "npx hardhat coverage",
+    "compile": "npx hardhat compile",
+    "deploy": "npx hardhat run scripts/deploy.ts",
+    "node": "npx hardhat node",
+    "clean": "npx hardhat clean",
+    "verify": "node scripts/verify-tests.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.24.1",
+    "prettier": "^3.5.3",
+    "solidity-coverage": "^0.8.1"
+  },
+  "dependencies": {
+    "ethers": "^6.14.3"
+  }
+}
