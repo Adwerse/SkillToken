@@ -1,0 +1,55 @@
+# Docker Compose для разработки
+# Использует volume mounting для hot reload
+
+services:
+  # Hardhat development node
+  hardhat-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: hardhat-dev
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "8545:8545"
+      - "9229:9229"  # Debug port
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - hardhat-dev-data:/usr/src/app/artifacts
+      - hardhat-dev-data:/usr/src/app/cache
+    networks:
+      - web3-dev-network
+    restart: unless-stopped
+
+  # Next.js development server
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+      target: development
+    container_name: nextjs-dev
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_HARDHAT_URL=http://hardhat-dev:8545
+      - WATCHPACK_POLLING=true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - hardhat-dev
+    networks:
+      - web3-dev-network
+    restart: unless-stopped
+
+networks:
+  web3-dev-network:
+    driver: bridge
+    name: web3-dev-network
+
+volumes:
+  hardhat-dev-data:
+    name: hardhat-dev-data 
