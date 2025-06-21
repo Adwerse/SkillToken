@@ -1,93 +1,93 @@
-# SkillToken - Контракт для управления сертификатами навыков
+# SkillToken - Smart Contract for Skill Certificate Management
 
-Этот проект содержит смарт-контракт `SkillToken` для управления сертификатами навыков, написанный на Solidity, с полным набором тестов на TypeScript.
+This project contains the `SkillToken` smart contract for managing skill certificates, written in Solidity, with a full set of tests in TypeScript.
 
-## Функциональность
+## Functionality
 
-SkillToken позволяет:
-- Владельцу добавлять новые сертификаты с указанием цены и количества
-- Пользователям покупать сертификаты за ETH
-- Владельцу помечать заказы как доставленные
-- Получать список всех доступных сертификатов
-- Отслеживать статус заказов
+SkillToken allows you to:
+- The owner can add new certificates with a specified price and quantity
+- Users can purchase certificates for ETH
+- The owner can mark orders as delivered
+- Retrieve a list of all available certificates
+- Track the status of orders
 
-## Установка
+## Installation
 
 ```bash
 npm install
 ```
 
-## Команды для тестирования
+## Testing Commands
 
-### Запуск тестов с автоматическим coverage
+### Run tests with automatic coverage
 ```bash
 npm test
 ```
-Эта команда запускает тесты и сразу после них анализ покрытия кода.
+This command runs the tests and then the code coverage analysis.
 
-### Запуск только тестов
+### Run tests only
 ```bash
 npm run test-only
 ```
 
-### Запуск только анализа покрытия
+### Run coverage only
 ```bash
 npm run coverage
 ```
 
-### Другие полезные команды
+### Other useful commands
 ```bash
-# Компиляция контракта
+# Compile the contract
 npm run compile
 
-# Очистка артефактов
+# Clean artifacts
 npm run clean
 
-# Запуск локальной ноды Hardhat
+# Run a local Hardhat node
 npm run node
 ```
 
-## Структура тестов
+## Test Structure
 
-Тесты находятся в файле `test/SkillToken.test.ts` и покрывают:
+Tests are located in `test/SkillToken.test.ts` and cover:
 
-### Основные функции:
-- ✅ Деплой контракта
-- ✅ Добавление сертификатов (только владелец)
-- ✅ Покупка сертификатов с валидацией цены и количества
-- ✅ Доставка заказов (только владелец)
-- ✅ Получение списка сертификатов
+### Main functions:
+- ✅ Contract deployment
+- ✅ Adding certificates (owner only)
+- ✅ Purchasing certificates with price and quantity validation
+- ✅ Order delivery (owner only)
+- ✅ Retrieving the list of certificates
 
-### Модификаторы и безопасность:
-- ✅ Ограничения доступа (`onlyOwner`)
-- ✅ Валидация входных данных
-- ✅ Защита от прямых переводов ETH
-- ✅ Fallback функция
+### Modifiers and security:
+- ✅ Access restrictions (`onlyOwner`)
+- ✅ Input validation
+- ✅ Protection against direct ETH transfers
+- ✅ Fallback function
 
-### События:
-- ✅ `CertificateBought` при покупке
-- ✅ `CertificateDelivered` при доставке
+### Events:
+- ✅ `CertificateBought` on purchase
+- ✅ `CertificateDelivered` on delivery
 
-### Граничные случаи:
-- ✅ Покупка последнего сертификата
-- ✅ Сертификаты с нулевой ценой
-- ✅ Большие количества
-- ✅ Пустые строки в данных
-- ✅ Несуществующие индексы
+### Edge cases:
+- ✅ Purchasing the last certificate
+- ✅ Certificates with zero price
+- ✅ Large quantities
+- ✅ Empty strings in data
+- ✅ Non-existent indexes
 
-### Интеграционные тесты:
-- ✅ Полный цикл: добавление → покупка → доставка
-- ✅ Множественные покупки и доставки
+### Integration tests:
+- ✅ Full cycle: add → purchase → deliver
+- ✅ Multiple purchases and deliveries
 
-## Покрытие кода
+## Code Coverage
 
-После запуска `npm test` или `npm run coverage` будет сгенерирован отчет о покрытии:
+After running `npm test` or `npm run coverage`, a coverage report will be generated:
 
-- **SkillToken.sol**: 100% покрытие функций, строк и веток
-- Отчеты сохраняются в папке `./coverage/`
-- HTML отчет доступен в `./coverage/index.html`
+- **SkillToken.sol**: 100% coverage of functions, lines, and branches
+- Reports are saved in the `./coverage/` folder
+- HTML report available at `./coverage/index.html`
 
-## Результат последнего тестирования
+## Last Test Results
 
 ```
   36 passing (431ms)
@@ -97,34 +97,34 @@ File                     |  % Stmts | % Branch |  % Funcs |  % Lines |
  SkillToken.sol         |      100 |      100 |      100 |      100 |
 ```
 
-## Архитектура тестов
+## Test Architecture
 
-### Фикстуры:
-- `deploySkillTokenFixture`: Базовый деплой контракта
-- `deployWithCertificateFixture`: Деплой с предустановленным сертификатом
+### Fixtures:
+- `deploySkillTokenFixture`: Basic contract deployment
+- `deployWithCertificateFixture`: Deployment with a pre-installed certificate
 
-### Группы тестов:
-1. **Деплой** - проверка корректной инициализации
-2. **Добавление сертификатов** - тестирование функции `addCertificate`
-3. **Покупка сертификатов** - тестирование функции `buy`
-4. **Доставка заказов** - тестирование функции `delivered`
-5. **Получение списка** - тестирование функции `allCertificates`
-6. **Прямые переводы** - тестирование `receive()` и fallback
-7. **Интеграционные тесты** - комплексные сценарии
-8. **Граничные случаи** - экстремальные значения
+### Test groups:
+1. **Deployment** - checking correct initialization
+2. **Adding certificates** - testing the `addCertificate` function
+3. **Purchasing certificates** - testing the `buy` function
+4. **Order delivery** - testing the `delivered` function
+5. **Retrieving the list** - testing the `allCertificates` function
+6. **Direct transfers** - testing `receive()` and fallback
+7. **Integration tests** - complex scenarios
+8. **Edge cases** - extreme values
 
-## Настройка автоматического запуска
+## Automatic Run Setup
 
-Благодаря настройке в `package.json`, команда `npm test` автоматически:
-1. Запускает все тесты
-2. Проверяет их успешность
-3. Если тесты прошли, запускает анализ покрытия
-4. Генерирует подробный отчет
+Thanks to the configuration in `package.json`, the `npm test` command automatically:
+1. Runs all tests
+2. Checks their success
+3. If tests pass, runs coverage analysis
+4. Generates a detailed report
 
-Это обеспечивает максимальное удобство разработки и контроля качества кода.
+This ensures maximum convenience for development and code quality control.
 
-## Дополнительные файлы
+## Additional Files
 
-- `.solcover.js` - конфигурация для solidity-coverage
-- `hardhat.config.ts` - настройки Hardhat с поддержкой TypeScript и coverage
-- `typechain-types/` - автоматически сгенерированные типы TypeScript
+- `.solcover.js` - configuration for solidity-coverage
+- `hardhat.config.ts` - Hardhat settings with TypeScript and coverage support
+- `typechain-types/` - automatically generated TypeScript types 
